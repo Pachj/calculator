@@ -3,19 +3,39 @@ body {
     font-size: 10px;
 }
 
-#calculator {
+#calculator { /*TODO: vertical align*/
     background-color: #2e6da4;
+    margin: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+@media (min-device-width: 992px) {
+    .flex-container {
+        width: 30vw;
+    }
+}
+@media (max-device-width: 992px) {
+    .flex-container {
+        width: 90vw;
+    }
 }
 
 .flex-container {
     display: flex;
+}
+
+#display-frame {
+    height: 6em;
+}
+
+button { /*TODO: button responsive height*/
+    border: 1px solid black;
+    width: 25%;
+    height: 6em;
 
 }
 
-.button {
-/*    background-color: #bcbcbc;
-    width: 80px;
-    height: 60px;
-    font-size: 2em;*/
-    border-style: none;
+#zero {
+    flex-grow: 1;
 }
