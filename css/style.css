@@ -1,7 +1,12 @@
 body {
     font-family: 'Inconsolata', monospace;
+    font-size: 10px;
 }
 
 #calculator {
-    border-radius: 30px;
+    background-color: #2e6da4;
+}
+
+.button {
+    background-color: #bcbcbc;
 }
