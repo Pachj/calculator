@@ -7,21 +7,15 @@ body {
     background-color: #2e6da4;
 }
 
+.flex-container {
+    display: flex;
+
+}
+
 .button {
-    background-color: #bcbcbc;
+/*    background-color: #bcbcbc;
     width: 80px;
     height: 60px;
-    font-size: 2em;
+    font-size: 2em;*/
     border-style: none;
-}
-
-#zero {
-    width: 160px;
-}
-
-.col-xs-3 {
-    padding: 0;
-}
-.col-xs-6 {
-    padding: 0;
 }
