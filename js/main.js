@@ -14,6 +14,7 @@ $(document).ready(function () {
     });
 });
 
+// decides which action should be done with the user input
 function nextStep(input) {
     switch (input) {
         case "clear":
@@ -24,6 +25,25 @@ function nextStep(input) {
         case "division":
         case "rest":
             calculate(input);
+            break;
+
+        case "subtraction":
+            if (result === "") {
+                result += "-";
+                showInput("-");
+            }
+            else {
+                calculate(input);
+            }
+            break;
+
+        case "addition":
+            if (result === "-") {
+                clearCalculator();
+            }
+            else {
+                calculate(input);
+            }
             break;
 
         default: // ToDo: max number length
@@ -39,7 +59,7 @@ function nextStep(input) {
     }
 }
 
-function calculate(newOperator) {
+function calculate(newOperator) { //ToDo: secondNumber reinitialize after calculation
     if (operator !== "") {
         switch (operator) {
             case "rest":
@@ -52,6 +72,14 @@ function calculate(newOperator) {
 
             case "division":
                 result = parseFloat(result) / parseFloat(secondNumber);
+                break;
+
+            case "subtraction":
+                result = parseFloat(result) - parseFloat(secondNumber);
+                break;
+
+            case "addition":
+                result = parseFloat(result) + parseFloat(secondNumber);
                 break;
         }
         $("#main-display").html(result);
