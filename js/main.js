@@ -8,9 +8,7 @@ let isSecondNumber = false;
 
 $(document).ready(function () {
     $(":button").click(function () {
-        let input = $(this).attr("value");
-
-        nextStep(input);
+        nextStep($(this).attr("value"));
     });
 });
 
@@ -30,7 +28,7 @@ function nextStep(input) {
         case "subtraction":
             if (result === "") {
                 result += "-";
-                showInput("-");
+                show("-");
             }
             else {
                 calculate(input);
@@ -46,14 +44,49 @@ function nextStep(input) {
             }
             break;
 
+        case "equals":
+            if (secondNumber === "") {
+                if (result === "") {
+                    show(0);
+                }
+                else {
+                    show(result);
+                }
+            }
+            else {
+                calculate(input);
+            }
+            break;
+
+        case "switch":
+            if (!secondNumber) {
+                if (result[0] === "-") {
+                    result = result.replace("-", "");
+                }
+                else {
+                    result = "-" + result;
+                }
+                show(result);
+            }
+            else {
+                if (secondNumber[0] === "-") {
+                    secondNumber = secondNumber.replace("-", "");
+                }
+                else {
+                    secondNumber = "-" + secondNumber;
+                }
+                show(secondNumber);
+            }
+            break;
+
         default: // ToDo: max number length
             if (!isSecondNumber) {
                 result += input;
-                showInput(result);
+                show(result);
             }
             else {
                 secondNumber += input;
-                showInput(secondNumber);
+                show(secondNumber);
             }
             break;
     }
@@ -99,7 +132,7 @@ function clearCalculator() {
     $("#second-display").html();
 }
 
-function showInput(inputToDisplay) {
-    $("#main-display").html(inputToDisplay);
+function show(toDisplay) {
+    $("#main-display").html(toDisplay);
 }
 
