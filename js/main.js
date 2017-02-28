@@ -1,187 +1,144 @@
 /**
- * Created by Henry on 25.02.17.
+ * Created by Henry on 28.02.17.
  */
-let calculation = {
-    firstNumber: "0",
-    secondNumber: "0",
-    operator: "",
-    result: 0,
-    firstNumberIsNegative: false,
-    secondNumberIsNegative: false
-};
-
+let result = "";
+let secondNumber = "";
+let operator = "";
 let isSecondNumber = false;
 
 $(document).ready(function () {
-    $(":button").click(function () { // ToDo: switch AC to C at first digit input, equals should show the first number if only one is available
-        let newInput = $(this).attr("value");
-        // if input is an operator --> if calculation is ready to be calculated --> generate temp result
-        if (isOperator(newInput)) {
-            if (canCalculate()) {
-                generateResult(newInput);
-            }
-            else {
-                calculation.operator = newInput;
-                isSecondNumber = true;
-            }
+    $(":button").click(function () {
+        if (($(this).attr("value")) !== "clear") {
+            $("#clear").html("C");
         }
-        // if input is an action
-        else if (isAction(newInput)) {
-            // if input is clear --> clear everything
-            if (newInput === "clear") {
-                clearCalculator();
-            }
-            // if input is signed-integer --> switch isNegative
-            else {
-                switchNegative();
-            }
-        }
-        // if input isn't an operator --> add the input to one of the numbers
-        else {
-            updateNumber(newInput);
-            displayInput();
-        }
-    })
+
+        nextStep($(this).attr("value"));
+    });
 });
 
-// checks if input is an operator
-let isOperator = (newInput) => { //ToDo: equals and dot other type
-    const operators = ["rest", "division", "multiplication", "subtraction", "addition", "equals"];
-    for (let i = 0; i < operators.length; i++) {
-        if (newInput === operators[i]) {
-            return true;
-        }
-    }
-    return false;
-};
-
-// checks if the input is an action
-let isAction = (newInput) => {
-    const actions = ["clear", "signed-integer"];
-    for (let i = 0; i < actions.length; i++) {
-        if (newInput === actions[i]) {
-            return true
-        }
-    }
-    return false;
-};
-
-// adds the new digit to a number
-function updateNumber(newDigit) { //ToDo: Add digit limit
-    if (!isSecondNumber) {
-        if (calculation.firstNumber === "0") {
-            calculation.firstNumber = newDigit;
-        }
-        else {
-            calculation.firstNumber += newDigit;
-        }
-    }
-    else {
-        if (calculation.secondNumber === "0") {
-            calculation.secondNumber = newDigit;
-        }
-        else {
-            calculation.secondNumber += newDigit;
-        }
-    }
-}
-
-// clears the calculation object
-function clearCalculator() { // ToDo: clear button switch from C to AC
-    calculation.firstNumber = "0";
-    calculation.secondNumber = "";
-    calculation.operator = "";
-    calculation.result = 0;
-    calculation.firstNumberIsNegative = false;
-    calculation.secondNumberIsNegative = false;
-}
-
-// switch number to positive or negative
-function switchNegative() {
-    if (!isSecondNumber) {
-        if (!calculation.firstNumberIsNegative) {
-            calculation.firstNumberIsNegative = true;
-        }
-        else {
-            calculation.firstNumberIsNegative = false;
-        }
-    }
-    else {
-        if (!calculation.secondNumberIsNegative) {
-            calculation.secondNumberIsNegative = true;
-        }
-        else {
-            calculation.secondNumberIsNegative = false;
-        }
-    }
-}
-
-// checks if an operator already is set
-let canCalculate = () => {
-    return (calculation.firstNumber !== "0" && calculation.secondNumber !== "0" && calculation.operator !== "");
-};
-
-// generates a result
-function generateResult(newOperator) { //ToDo: Display ev. in new function
-    calculate();
-    calculation.firstNumber = calculation.result;
-    calculation.secondNumber = "0";
-    calculation.operator = newOperator;
-
-    $("#main-display").html(calculation.firstNumber);
-}
-
-// calculates the result
-function calculate() {
-    switch (calculation.operator) {
-        case "addition":
-            addition();
-            break;
-
-        case "subtraction":
-            subtraction();
+// decides which action should be done with the user input
+function nextStep(input) {
+    switch (input) {
+        case "clear":
+            clearCalculator();
             break;
 
         case "multiplication":
-            multiplication();
-            break;
-
         case "division":
-            division();
-            break;
-
         case "rest":
-            rest();
+            calculate(input);
+            break;
+
+        case "subtraction":
+            if (result === "") {
+                result += "-";
+                show("-");
+            }
+            else {
+                calculate(input);
+            }
+            break;
+
+        case "addition":
+            if (result === "-") {
+                clearCalculator();
+            }
+            else {
+                calculate(input);
+            }
+            break;
+
+        case "equals":
+            if (secondNumber === "") {
+                if (result === "") {
+                    show(0);
+                }
+                else {
+                    show(result);
+                }
+            }
+            else {
+                calculate(input);
+            }
+            break;
+
+        case "switch":
+            if (!secondNumber) {
+                if (result[0] === "-") {
+                    result = result.replace("-", "");
+                }
+                else {
+                    result = "-" + result;
+                }
+                show(result);
+            }
+            else {
+                if (secondNumber[0] === "-") {
+                    secondNumber = secondNumber.replace("-", "");
+                }
+                else {
+                    secondNumber = "-" + secondNumber;
+                }
+                show(secondNumber);
+            }
+            break;
+
+        default: // ToDo: max number length
+            if (!isSecondNumber) {
+                result += input;
+                show(result);
+            }
+            else {
+                secondNumber += input;
+                show(secondNumber);
+            }
             break;
     }
+}
 
-    function addition() {
-        calculation.result = parseInt(calculation.firstNumber + calculation.secondNumber);
-    }
+function calculate(newOperator) {
+    if (operator !== "") {
+        switch (operator) {
+            case "rest":
+                result = parseFloat(result) % parseFloat(secondNumber);
+                break;
 
-    function subtraction() {
-        calculation.result = parseInt(calculation.firstNumber - calculation.secondNumber);
-    }
+            case "multiplication":
+                result = parseFloat(result) * parseFloat(secondNumber);
+                break;
 
-    function multiplication() {
-        calculation.result = parseInt(calculation.firstNumber * calculation.secondNumber);
-    }
+            case "division":
+                result = parseFloat(result) / parseFloat(secondNumber);
+                break;
 
-    function division() {
-        calculation.result = parseInt(calculation.firstNumber / calculation.secondNumber);
-    }
+            case "subtraction":
+                result = parseFloat(result) - parseFloat(secondNumber);
+                break;
 
-    function rest() {
-        calculation.result = parseInt(calculation.firstNumber % calculation.secondNumber);
+            case "addition":
+                result = parseFloat(result) + parseFloat(secondNumber);
+                break;
+        }
+        $("#main-display").html(result);
+        secondNumber = "";
     }
+    operator = newOperator;
+    isSecondNumber = true;
 }
 
 
-function displayInput() {
-    if (!isSecondNumber) {
-        $("#main-display").html(calculation.firstNumber);
-    }
-    else {
-        $("#main-display.html").html(calculation.secondNumber);
-    }
+function clearCalculator() {
+    result = "";
+    secondNumber = "";
+    operator = "";
+    isSecondNumber = false;
+
+    $("#main-display").html(0);
+    $("#second-display").html();
+    $("#clear").html("AC");
 }
+
+function show(toDisplay) {
+    $("#main-display").html(toDisplay);
+}
+
