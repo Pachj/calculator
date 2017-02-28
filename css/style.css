@@ -8,21 +8,14 @@ body {
     margin: auto;
     flex-wrap: wrap;
     justify-content: center;
+    height: 420px;
+
 }
 
-@media (min-device-width: 992px) { /*ToDo: Tablet size, change vw into fix tables*/
-    .flex-container {
-        width: 20vw;
-    }
-}
-@media (max-device-width: 992px) {
-    .flex-container {
-        width: 90vw;
-    }
-}
-
-.flex-container {
+.flex-container { /*ToDo: width for iPhone 5*/
     display: flex;
+    width: 320px;
+    height: 70px;
 }
 
 #main-display-frame {
@@ -32,7 +25,7 @@ body {
 button { /*TODO: button responsive height*/
     border: 1px solid black;
     width: 25%;
-    height: 6em;
+    height: 100%;
 }
 
 #zero {
