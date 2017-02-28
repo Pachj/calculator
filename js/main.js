@@ -43,20 +43,21 @@ function calculate(newOperator) {
     if (operator !== "") {
         switch (operator) {
             case "rest":
-                result = parseFloat(result % secondNumber);
+                result = parseFloat(result) % parseFloat(secondNumber);
                 break;
 
             case "multiplication":
-                result = parseFloat(result * secondNumber);
+                result = parseFloat(result) * parseFloat(secondNumber);
                 break;
 
             case "division":
-                result = parseFloat(result / secondNumber);
+                result = parseFloat(result) / parseFloat(secondNumber);
                 break;
         }
-        operator = newOperator;
-        showSecond(result); //FixMe: Didn't show result in second-display
+        $("#main-display").html(result);
     }
+    operator = newOperator;
+    isSecondNumber = true;
 }
 
 
@@ -73,3 +74,4 @@ function clearCalculator() {
 function showInput(inputToDisplay) {
     $("#main-display").html(inputToDisplay);
 }
+
