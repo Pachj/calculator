@@ -10,7 +10,7 @@ body {
     justify-content: center;
 }
 
-@media (min-device-width: 992px) { /*ToDo: Tablet size*/
+@media (min-device-width: 992px) { /*ToDo: Tablet size, change vw into fix tables*/
     .flex-container {
         width: 20vw;
     }
@@ -37,7 +37,6 @@ button { /*TODO: button responsive height*/
     border: 1px solid black;
     width: 25%;
     height: 6em;
-
 }
 
 #zero {

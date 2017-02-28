@@ -13,12 +13,12 @@ let calculation = {
 let isSecondNumber = false;
 
 $(document).ready(function () {
-    $(":button").click(function () { // ToDo: switch AC to C at first digit input
+    $(":button").click(function () { // ToDo: switch AC to C at first digit input, equals should show the first number if only one is available
         let newInput = $(this).attr("value");
         // if input is an operator --> if calculation is ready to be calculated --> generate temp result
         if (isOperator(newInput)) {
             if (canCalculate()) {
-                generateTempResult(newInput);
+                generateResult(newInput);
             }
             else {
                 calculation.operator = newInput;
@@ -116,11 +116,13 @@ function switchNegative() {
     }
 }
 
+// checks if an operator already is set
 let canCalculate = () => {
     return (calculation.firstNumber !== "0" && calculation.secondNumber !== "0" && calculation.operator !== "");
 };
 
-function generateTempResult(newOperator) { //ToDo: Display ev. in new function
+// generates a result
+function generateResult(newOperator) { //ToDo: Display ev. in new function
     calculate();
     calculation.firstNumber = calculation.result;
     calculation.secondNumber = "0";
@@ -129,6 +131,7 @@ function generateTempResult(newOperator) { //ToDo: Display ev. in new function
     $("#main-display").html(calculation.firstNumber);
 }
 
+// calculates the result
 function calculate() {
     switch (calculation.operator) {
         case "addition":
@@ -173,11 +176,12 @@ function calculate() {
     }
 }
 
+
 function displayInput() {
     if (!isSecondNumber) {
         $("#main-display").html(calculation.firstNumber);
     }
     else {
-        $("#main-display.html")(calculation.secondNumber);
+        $("#main-display.html").html(calculation.secondNumber);
     }
 }
