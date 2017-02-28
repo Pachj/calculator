@@ -8,6 +8,10 @@ let isSecondNumber = false;
 
 $(document).ready(function () {
     $(":button").click(function () {
+        if (($(this).attr("value")) !== "clear") {
+            $("#clear").html("C");
+        }
+
         nextStep($(this).attr("value"));
     });
 });
@@ -92,7 +96,7 @@ function nextStep(input) {
     }
 }
 
-function calculate(newOperator) { //ToDo: secondNumber reinitialize after calculation
+function calculate(newOperator) {
     if (operator !== "") {
         switch (operator) {
             case "rest":
@@ -116,6 +120,7 @@ function calculate(newOperator) { //ToDo: secondNumber reinitialize after calcul
                 break;
         }
         $("#main-display").html(result);
+        secondNumber = "";
     }
     operator = newOperator;
     isSecondNumber = true;
@@ -130,6 +135,7 @@ function clearCalculator() {
 
     $("#main-display").html(0);
     $("#second-display").html();
+    $("#clear").html("AC");
 }
 
 function show(toDisplay) {
