@@ -1,6 +1,9 @@
 /**
  * Created by Henry on 28.02.17.
  */
+
+//Todo: What should be displayed?
+
 let result = "";
 let secondNumber = "";
 let operator = "";
