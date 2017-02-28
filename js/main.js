@@ -3,7 +3,7 @@
  */
 let calculation = {
     firstNumber: "0",
-    secondNumber: "",
+    secondNumber: "0",
     operator: "",
     result: 0,
     firstNumberIsNegative: false,
@@ -15,9 +15,15 @@ let isSecondNumber = false;
 $(document).ready(function () {
     $(":button").click(function () { // ToDo: switch AC to C at first digit input
         let newInput = $(this).attr("value");
-        // if input is an operator -->
+        // if input is an operator --> if calculation is ready to be calculated --> generate temp result
         if (isOperator(newInput)) {
-            calculation.operator = newInput;
+            if (canCalculate()) {
+                generateTempResult(newInput);
+            }
+            else {
+                calculation.operator = newInput;
+                isSecondNumber = true;
+            }
         }
         // if input is an action
         else if (isAction(newInput)) {
@@ -33,12 +39,13 @@ $(document).ready(function () {
         // if input isn't an operator --> add the input to one of the numbers
         else {
             updateNumber(newInput);
+            displayInput();
         }
     })
 });
 
 // checks if input is an operator
-let isOperator = (newInput) => {
+let isOperator = (newInput) => { //ToDo: equals and dot other type
     const operators = ["rest", "division", "multiplication", "subtraction", "addition", "equals"];
     for (let i = 0; i < operators.length; i++) {
         if (newInput === operators[i]) {
@@ -70,7 +77,12 @@ function updateNumber(newDigit) { //ToDo: Add digit limit
         }
     }
     else {
-        calculation.secondNumber += newDigit;
+        if (calculation.secondNumber === "0") {
+            calculation.secondNumber = newDigit;
+        }
+        else {
+            calculation.secondNumber += newDigit;
+        }
     }
 }
 
@@ -104,3 +116,68 @@ function switchNegative() {
     }
 }
 
+let canCalculate = () => {
+    return (calculation.firstNumber !== "0" && calculation.secondNumber !== "0" && calculation.operator !== "");
+};
+
+function generateTempResult(newOperator) { //ToDo: Display ev. in new function
+    calculate();
+    calculation.firstNumber = calculation.result;
+    calculation.secondNumber = "0";
+    calculation.operator = newOperator;
+
+    $("#main-display").html(calculation.firstNumber);
+}
+
+function calculate() {
+    switch (calculation.operator) {
+        case "addition":
+            addition();
+            break;
+
+        case "subtraction":
+            subtraction();
+            break;
+
+        case "multiplication":
+            multiplication();
+            break;
+
+        case "division":
+            division();
+            break;
+
+        case "rest":
+            rest();
+            break;
+    }
+
+    function addition() {
+        calculation.result = parseInt(calculation.firstNumber + calculation.secondNumber);
+    }
+
+    function subtraction() {
+        calculation.result = parseInt(calculation.firstNumber - calculation.secondNumber);
+    }
+
+    function multiplication() {
+        calculation.result = parseInt(calculation.firstNumber * calculation.secondNumber);
+    }
+
+    function division() {
+        calculation.result = parseInt(calculation.firstNumber / calculation.secondNumber);
+    }
+
+    function rest() {
+        calculation.result = parseInt(calculation.firstNumber % calculation.secondNumber);
+    }
+}
+
+function displayInput() {
+    if (!isSecondNumber) {
+        $("#main-display").html(calculation.firstNumber);
+    }
+    else {
+        $("#main-display.html")(calculation.secondNumber);
+    }
+}
