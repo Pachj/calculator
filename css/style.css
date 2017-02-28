@@ -29,10 +29,6 @@ body {
     height: 6em;
 }
 
-#second-display-frame {
-    height: 4em;
-}
-
 button { /*TODO: button responsive height*/
     border: 1px solid black;
     width: 25%;

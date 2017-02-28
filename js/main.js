@@ -70,10 +70,6 @@ function clearCalculator() {
     $("#second-display").html();
 }
 
-function showSecond(valueToDisplay) {
-    $("#second-display").html(valueToDisplay);
-}
-
 function showInput(inputToDisplay) {
     $("#main-display").html(inputToDisplay);
 }
