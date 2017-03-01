@@ -2,8 +2,6 @@
  * Created by Henry on 28.02.17.
  */
 
-
-    //ToDo: Comments for all functions!
 let result = "";
 let secondNumber = "";
 let operator = "";
@@ -86,7 +84,7 @@ function nextStep(input) {
             }
             break;
 
-        default: // ToDo: max number length (8)
+        default:
             if (!isSecondNumber) {
                 if (result.length >= 8) {
                     clearCalculator();
@@ -109,6 +107,7 @@ function nextStep(input) {
     }
 }
 
+// make the desired calculation
 function calculate(newOperator) {
     if (operator !== "") {
         switch (operator) {
@@ -139,7 +138,7 @@ function calculate(newOperator) {
     isSecondNumber = true;
 }
 
-
+// clear the whole calculator
 function clearCalculator() {
     result = "";
     secondNumber = "";
@@ -151,6 +150,7 @@ function clearCalculator() {
     $("#clear").html("AC");
 }
 
+// display the parameter on the main-display
 function show(toDisplay) {
     $("#main-display").html(toDisplay);
 }
