@@ -2,7 +2,7 @@
  * Created by Henry on 28.02.17.
  */
 
-//Todo: What should be displayed?
+
     //ToDo: Comments for all functions!
 let result = "";
 let secondNumber = "";
@@ -88,12 +88,22 @@ function nextStep(input) {
 
         default: // ToDo: max number length (8)
             if (!isSecondNumber) {
-                result += input;
-                show(result);
+                if (result.length >= 8) {
+                    clearCalculator();
+                }
+                else {
+                    result += input;
+                    show(result);
+                }
             }
             else {
-                secondNumber += input;
-                show(secondNumber);
+                if (result.length >= 8) {
+                    clearCalculator();
+                }
+                else {
+                    secondNumber += input;
+                    show(secondNumber);
+                }
             }
             break;
     }
