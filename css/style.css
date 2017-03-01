@@ -3,7 +3,7 @@ body {
     font-size: 10px;
 }
 
-#calculator { /*TODO: vertical align, shadows*/
+#calculator {
     background-color: #828282;
     margin: 10% auto;
     flex-wrap: wrap;
@@ -19,7 +19,7 @@ body {
     height: 300px;
 }
 
-.flex-container { /*ToDo: width for iPhone 5*/
+.flex-container {
     display: flex;
     width: 300px;
 }
