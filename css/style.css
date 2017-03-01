@@ -35,6 +35,12 @@ button {
     height: 100%;
     background-color: #dbdbdb;
     font-size: 20px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+button:hover {
+    opacity: 0.4;
 }
 
 .operator {
