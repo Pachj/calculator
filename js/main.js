@@ -3,7 +3,7 @@
  */
 
 //Todo: What should be displayed?
-
+    //ToDo: Comments for all functions!
 let result = "";
 let secondNumber = "";
 let operator = "";
@@ -86,7 +86,7 @@ function nextStep(input) {
             }
             break;
 
-        default: // ToDo: max number length
+        default: // ToDo: max number length (8)
             if (!isSecondNumber) {
                 result += input;
                 show(result);

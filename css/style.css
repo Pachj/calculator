@@ -4,30 +4,41 @@ body {
 }
 
 #calculator { /*TODO: vertical align, shadows*/
-    background-color: #2e6da4;
-    margin: auto;
+    background-color: #828282;
+    margin: 10% auto;
     flex-wrap: wrap;
     justify-content: center;
     height: 420px;
-    /*padding: 0 12px 0 12px;*/
     border-radius: 20px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
 
+#buttons {
+    display: flex;
+    flex-wrap: wrap;
+    height: 300px;
 }
 
 .flex-container { /*ToDo: width for iPhone 5*/
     display: flex;
-    width: 320px;
-    height: 70px;
+    width: 300px;
 }
 
 #main-display-frame {
-    height: 6em;
+    height: 80px;
+    padding: 20px;
 }
 
-button { /*TODO: button responsive height*/
-    border: 1px solid black;
+button {
+    border: 1px solid #828282;
     width: 25%;
     height: 100%;
+    background-color: #dbdbdb;
+    font-size: 20px;
+}
+
+.operator {
+    background-color: #09b2cb;
 }
 
 #zero {
@@ -40,6 +51,10 @@ button { /*TODO: button responsive height*/
 }
 
 p {
+    margin: 0;
     width: 100%;
     height: 100%;
+    font-size: 65px;
+    text-align: right;
+    color: white;
 }
